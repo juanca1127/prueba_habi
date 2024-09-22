@@ -73,3 +73,8 @@ LEFT JOIN property_likes pl ON p.id = pl.property_id
 GROUP BY p.id;
 
 ```
+# Diagrama
+
+![Diagrama entidad relacion](https://github.com/juanca1127/prueba_habi/blob/master/habi.png)
+
+
