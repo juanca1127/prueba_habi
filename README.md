@@ -77,4 +77,9 @@ GROUP BY p.id;
 
 ![Diagrama entidad relacion](https://github.com/juanca1127/prueba_habi/blob/master/habi.png)
 
+# Union de la tabla LIKES
+
+![Diagrama entidad relacion](https://github.com/juanca1127/prueba_habi/blob/main/union.png)
+
+
 
