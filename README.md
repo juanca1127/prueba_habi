@@ -12,7 +12,7 @@ Servicio de consulta
 ● Los usuarios pueden filtrar estos inmuebles por: Año de construcción, Ciudad, Estado.
 ● Los usuarios pueden aplicar varios filtros en la misma consulta.
 ● Los usuarios pueden ver la siguiente información del inmueble: Dirección, Ciudad,
-Estado, Precio de venta y Descripción.
+  Estado, Precio de venta y Descripción.
 
 # Dudas
  ● en el requerimeinto se plantea que el usuario pueda filtrar por años pero tambien dice que datos puede ver el usuario al consultar el servicio
@@ -34,10 +34,42 @@ Estado, Precio de venta y Descripción.
 );
 ```
 
-
 Lo cree de esta forma siguiendo los estandares que ya se manejan en habi
 
 ● Tabla auth_user: Guarda los datos de los usuarios.
-Tabla property_likes: Relaciona a los usuarios con las propiedades que les han dado "like".
-Cada fila representa un "like" que un usuario ha dado a una propiedad.
-El índice único en (property_id, user_id) asegura que cada usuario solo pueda dar un "like" a cada propiedad.
+
+● Tabla property_likes: Relaciona a los usuarios con las propiedades que les han dado "like".
+   Cada fila representa un "like" que un usuario ha dado a una propiedad.
+   El índice único en (property_id, user_id) asegura que cada usuario solo pueda dar un "like" a cada propiedad.
+
+# Ejemplos
+
+● Inserccion Likes
+
+ ```plain
+ INSERT INTO property_likes (property_id, user_id)
+VALUES (1, 10)  -- property_id = 1, user_id = 10;
+
+```
+● Eliminacion Likes
+  ```plain
+ DELETE FROM property_likes
+ WHERE property_id = 1 AND user_id = 10;
+
+```
+● Contar likes de una propiedad
+  ```plain
+ SELECT COUNT(*) AS like_count
+FROM property_likes
+WHERE property_id = 1;
+
+```
+● Listar propiedades con la cantidad de likes
+  ```plain
+
+SELECT p.id, p.address, p.city, COUNT(pl.id) AS total_likes
+FROM property p
+LEFT JOIN property_likes pl ON p.id = pl.property_id
+GROUP BY p.id;
+
+```
