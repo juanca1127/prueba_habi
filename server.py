@@ -13,7 +13,20 @@ class MyHandler(SimpleHTTPRequestHandler):
             # Se valida que no venga vacio
             if(content_length >0):
                 body = self.rfile.read(content_length).decode('utf-8')
-                data = json.loads(body)
+                try:
+
+                 data = json.loads(body)
+                except json.JSONDecodeError as e:
+                     self.send_response(400)
+                     self.send_header('Content-type', 'application/json')
+                     self.end_headers()
+                     # Creas un diccionario con el error
+                     mensaje = json.dumps({
+                        "error": str(e)  # Convertir el error a cadena si no lo es
+                        })
+                     # se le devuelve en JSON la respuesta
+                     self.wfile.write( mensaje.encode())
+
             else:
                 data = {}     
             Query =""
