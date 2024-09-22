@@ -9,8 +9,11 @@ con la diferencia que los dividi en varios archivos, uno para las rutas, otros c
 # Requermientos
 Servicio de consulta
 ● Los usuarios pueden consultar los inmuebles con los estados: “pre_venta”, “en_venta” y “vendido” (los inmuebles con estados distintos nunca deben ser visibles por el usuario).
+
 ● Los usuarios pueden filtrar estos inmuebles por: Año de construcción, Ciudad, Estado.
+
 ● Los usuarios pueden aplicar varios filtros en la misma consulta.
+
 ● Los usuarios pueden ver la siguiente información del inmueble: Dirección, Ciudad,
   Estado, Precio de venta y Descripción.
 
