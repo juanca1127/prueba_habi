@@ -4,7 +4,13 @@ from db_queries import get_property
 import json
 
 
-class MyHandler(SimpleHTTPRequestHandler):
+class CORSRequestHandler(SimpleHTTPRequestHandler):
+    def end_headers(self):
+        # Agregar encabezados CORS
+        self.send_header('Access-Control-Allow-Origin', '*')  # Permitir todos los orígenes
+        self.send_header('Access-Control-Allow-Methods', ' POST')  # Métodos permitidos
+        self.send_header('Access-Control-Allow-Headers', 'Content-Type')  # Encabezados permitidos
+        SimpleHTTPRequestHandler.end_headers(self)
     def do_POST(self):
         
         if self.path == '/property':
@@ -70,6 +76,6 @@ class MyHandler(SimpleHTTPRequestHandler):
 if __name__ == "__main__":
     port = 8000
     server_address = ('', port)
-    httpd = HTTPServer(server_address, MyHandler)
+    httpd = HTTPServer(server_address, CORSRequestHandler)
     print(f"Servidor corriendo en el puerto {port}")
     httpd.serve_forever()
