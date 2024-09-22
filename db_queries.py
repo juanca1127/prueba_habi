@@ -13,7 +13,8 @@ def get_property(Param,page,rowsPerPage):
             offset= (int(page) -1)* int(rowsPerPage)
 
             #Construccion de la consulta para los inmuebles
-            query= """ SELECT p.address ,p.city ,s.name as status ,p.price ,p.description,p.`year`  
+            query= """ SELECT p.address ,p.city ,s.name as status ,p.price ,COALESCE (NULLIF(p.description,''),'Sin description') as description,
+                        COALESCE(p.`year` ,0) AS 'year'
                         FROM property p
                         JOIN status_history sh on sh.property_id = p.id
                         INNER JOIN status s on sh.status_id = s.id 
@@ -21,10 +22,11 @@ def get_property(Param,page,rowsPerPage):
                         SELECT MAX(sh2.update_date)
                         FROM status_history sh2
                         WHERE sh2.property_id=p.id
-                        ) """
+                        ) AND p.address <>'' AND p.city <> '' AND p.price <>0  """
             if Param:
              # construccion de la consulta con los parametros y filtros
              query=" ".join([query,Param])
+             
              # construccion de la paginacion
              pagination=" LIMIT {0} OFFSET {1}".format(rowsPerPage,offset)
 
